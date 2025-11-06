@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Africa Asia Health Dynamics</title>
+    <!-- Load Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for smooth transitions and fixed height */
+        .header-height {
+            height: 4.5rem; /* Slightly taller header for visual weight */
+        }
+        @media (max-width: 1023px) {
+            .header-height {
+                height: auto;
+                min-height: 4.5rem;
+            }
+        }
+        /* Enable smooth scrolling for the entire page */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* NOTE: Removed .header-end-cap CSS as it conflicts with centering */
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<!-- Language Toggle JavaScript Logic and Mobile Menu Handlers -->
+<script>
+    // 1. Define Translation Data (Central source of truth for all translatable text)
+    const translations = {
+        'EN': {
+            'home': 'Home',
+            'about': 'About',
+            'news': 'News',
+            'contacts': 'Contacts',
+            'main_header': 'Your website content will go below this header.',
+            'main_tip': 'The logo is currently looking for the file named \'Black-on-White.png\' in the same directory.',
+            'hero_heading_1': 'THE PRECISION OF ASIA.',
+            'hero_heading_2': 'THE POTENTIAL OF AFRICA.',
+            'cta_explore': 'EXPLORE WITH US',
+            'cta_consult': 'CONSULT WITH US',
+            'stat_years_num': '10+',
+            'stat_years_desc': 'Partners',
+            'stat_hospitals_num': '500+',
+            'stat_healthcare_professionals_desc': 'MEDICAL PROFESSIONALS Trained',
+            'stat_ventures_num': '20+',
+            'stat_ventures_desc': 'BUSINESSES consulted',
+            'services_title': 'OUR CORE SERVICES',
+            'card1_title': 'Expert Medical Trainings',
+            'card1_cta': 'View Programs & Webinars',
+            'card2_title': 'Business Consulting and Development',
+            'card2_snippet': 'Healthcare business research support',
+            'card2_cta': 'Book a Consultation',
+            'card3_title': 'MEDICAL EQUIPMENT FINANCING',
+            'card3_snippet': 'Get financing to procure medical equipment',
+            'card3_cta': 'Get a quotation',
+            'footer_logo': 'footer_logo',
+            'footer_brand': 'AFRICA ASIA HEALTH DYNAMICS',
+            'footer_quick_title': 'Quick Links',
+            'footer_link_about': 'ABOUT US',
+            'footer_link_services': 'SERVICES',
+            'footer_link_contact': 'CONTACT',
+            'footer_services_title': 'Our Services',
+            'footer_service_1': 'Medical Trainings',
+            'footer_service_2': 'Consulting Services',
+            'footer_service_3': 'Equipment Financing',
+            'footer_contact_title': 'Contact Us',
+            'footer_contact_phone': 'Phone: +254 7XX XXXX XXX',
+            'footer_contact_email': 'Email: info@aa-healthdynamics.com',
+            'footer_contact_offices': 'Offices: Nairobi, Kenya / Tokyo, Japan',
+            'footer_copyright': 'AFRICA ASIA HEALTH DYNAMICS',
+            'lang_code': 'EN'
+        },
+        'JA': {
+            'home': 'ホーム',
+            'about': '私たちについて',
+            'news': 'ニュース',
+            'contacts': 'お問い合わせ',
+            'main_header': 'ここにウェブサイトのコンテンツが表示されます。',
+            'main_tip': 'ロゴは現在、同じディレクトリにあるファイル名 \'Black-on-White.png\' を探しています。',            
+            'hero_heading_1': 'アジアの精度。',
+            'hero_heading_2': 'アフリカの可能性。',
+            'cta_explore': '私たちと探検',            
+            'cta_consult': 'ご相談ください',
+            'stat_years_num': '10+',
+            'stat_years_desc': 'パートナー',
+            'stat_hospitals_num': '500+',
+            'stat_healthcare_professionals_desc': '訓練を受けた医療専門家',
+            'stat_ventures_num': '20+',
+            'stat_ventures_desc': '相談を受けた企業',
+            'services_title': '当社のコアサービス',
+            'card1_title': '専門医療トレーニング',            
+            'card1_cta': 'プログラムとウェビナーを見る',
+            'card2_title': 'ビジネスコンサルティングと開発',
+            'card2_snippet': '医療ビジネス調査サポート',
+            'card2_cta': 'コンサルテーションを予約する',
+            'card3_title': '医療機器の融資',
+            'card3_snippet': '医療機器を調達するための融資を受ける',
+            'card3_cta': '見積もりを取得する',
+            'footer_logo': 'footer_logo',
+            'footer_brand': 'アフリカアジア健康力学',
+            'footer_quick_title': 'クイックリンク',
+            'footer_link_about': '私たちに関しては',
+            'footer_link_services': 'サービス',
+            'footer_link_contact': '接触',
+            'footer_services_title': '当社のサービス',
+            'footer_service_1': '医療訓練',
+            'footer_service_2': 'コンサルティングサービス',
+            'footer_service_3': '機器の融資',
+            'footer_contact_title': 'お問い合わせ',
+            'footer_contact_phone': '電話: +254 7XX XXXX XXX',
+            'footer_contact_email': 'Eメール: info@aa-healthdynamics.com',
+            'footer_contact_offices': 'オフィス: ナイロビ、ケニア / 東京、日本',
+            'footer_copyright': 'アフリカアジア健康力学',
+            'lang_code': 'JA',
+        }
+    };
+
+    function toggleLanguage() {
+        const langButton = document.getElementById('lang-toggle-btn');
+        
+        // 1. Determine the target language (JA if current is EN, EN if current is JA)
+        const currentLang = langButton.textContent.trim() === 'EN' ? 'JA' : 'EN';
+        const newText = translations[currentLang];
+
+        // 2. Update button text and HTML lang attribute
+        langButton.textContent = newText.lang_code;
+        document.documentElement.lang = newText.lang_code.toLowerCase();
+
+        // 3. Functional Part: Use querySelectorAll to find all translatable elements
+        const elementsToUpdate = document.querySelectorAll('[data-translate]');
+
+        // 4. Loop through all found elements and apply the new translation
+        elementsToUpdate.forEach(element => {
+            const key = element.getAttribute('data-translate');
+            
+            if (newText[key]) {
+                element.textContent = newText[key];
+            }
+        });
+    }
+
+    
+    // Additional JavaScript for Mobile Menu Toggle and On-Load Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+        const openBtn = document.getElementById('mobile-menu-open-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (openBtn && mobileMenu) {
+            openBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+        // Ensure language is set to English on initial load
+        document.documentElement.lang = 'en'; 
+    });
+</script>
+
+    <!-- Navigation Bar Component -->
+    <header class="header-height sticky top-0 z-50 bg-blue-900 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+            <!-- CRITICAL FIX: Changed from relative to standard Flexbox with justify-between -->
+            <div class="flex justify-between items-center h-full">
+
+                <!-- LEFT SIDE: Branding/Logo -->
+                <a href="#" class="flex-shrink-0 flex items-center h-full z-30">
+                <!-- IMPORTANT: Image source is local file name as requested (will show broken image icon) -->
+                <img 
+                    src="Black-on-White.png" 
+                    alt="Black on white Company Logo" 
+                    class="h-10 md:h-12 rounded-lg object-contain"
+                    onerror="this.onerror=null; this.src='https://placehold.co/150x50/FFFFFF/000000?text=Logo+Not+Found'"
+                >
+            </a>
+
+                <!-- CENTER: Desktop Navigation Links (Hidden on small screens) -->
+                <!-- FIX: Added flex-grow to take up center space, and justify-center to center the links within that space -->
+                <nav class="flex-grow flex justify-center h-full hidden lg:flex">
+                <div class="space-x-8 flex items-center justify-center">
+                    <a href="#home-section" data-translate="home" class="text-white hover:text-blue-300 transition duration-150 p-2 rounded-lg font-medium">Home</a>
+                    <a href="#about-section" data-translate="about" class="text-white hover:text-blue-300 transition duration-150 p-2 rounded-lg font-medium">About</a>
+                    <a href="#" data-translate="news" class="text-white hover:text-blue-300 transition duration-150 p-2 rounded-lg font-medium">News</a>
+                    <a href="#contact-section" data-translate="contacts" class="text-white hover:text-blue-300 transition duration-150 p-2 rounded-lg font-medium">Contacts</a>
+                </div>
+            </nav>
+
+                <!-- RIGHT SIDE: Language Toggle & Mobile Menu Button -->
+                <div class="flex items-center space-x-4 flex-shrink-0 z-30">
+
+                <!-- Language Toggle Button -->
+                <button 
+                    id="lang-toggle-btn"
+                    onclick="toggleLanguage()"
+                    class="px-4 py-2 text-sm font-semibold rounded-full bg-blue-700 text-white hover:bg-blue-600 transition duration-200 shadow-md"
+                >
+                    EN
+                </button>
+
+                    <!-- Mobile Menu Button (Visible only on small screens) -->
+                    <button
+                        id="mobile-menu-open-btn"
+                    class="lg:hidden text-white hover:text-blue-300 p-2 rounded-lg focus:outline-none transition duration-150"
+                    aria-label="Toggle menu"
+                >
+                    <!-- Icon for Hamburger Menu -->
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main></main>
+
+    <!-- Hero Section -->
+    <section id="hero-section" class="bg-white text-gray-800 pt-0">
+        <div class="container mx-auto px-4 py-20 md:py-24 lg:py-28 flex flex-col items-center text-center pt-0">
+            <!-- New Hero Text -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-blue-900 mb-6 max-w-5xl">
+                Empowering Excellence in Healthcare
+            </h1>
+            <p class="text-xl sm:text-2xl text-black mb-10 max-w-4xl">
+                Bridging the precision of Japan with the potential of Africa — through world-class medical training, reliable consulting, and flexible equipment financing solutions.
+            </p>
+
+            <!-- "Trusted by 500+ clinics" Line -->
+            <div class="mb-8 text-base text-black">
+                Trusted by 500+ clinics and leading medical professionals globally.
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#programs" class="inline-block px-10 py-4 text-xl font-semibold text-white bg-blue-900 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
+                    Explore Our Programs
+                </a>
+                <a href="#contact-section" class="inline-block px-10 py-4 text-xl font-semibold text-white bg-blue-900 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
+                    Consult with Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+<!-- About Us Section -->
+    <section id="about-section" class="bg-gray-100 py-16 mt-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Title -->
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-blue-900">ABOUT US</h2>
+            </div>
+
+            <!-- Introductory Paragraph -->
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <p class="text-lg text-gray-700">
+                    We are a specialized consulting firm dedicated to bridging the healthcare gap between Asia and Africa. We provide expert medical training, strategic business consulting for Japanese and Asian companies entering the African market, and facilitate financing for essential medical equipment and devices.
+                </p>
+            </div>
+
+            <!-- Mission & Vision -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-center mb-16">
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-800 mb-3">Our Mission</h3>
+                    <p class="text-lg text-gray-600">Resolving local medical issues by empowering local medical workers.</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-800 mb-3">Our Vision</h3>
+                    <p class="text-lg text-gray-600">Continuing to take on emerging countries as a business development professional.</p>
+                </div>
+            </div>
+
+            <!-- Core Values -->
+            <div class="text-center mb-16">
+                <h3 class="text-2xl font-bold text-blue-800 mb-8">Our Core Values</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Value 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <p class="text-lg font-semibold text-gray-800">1. Try and Error then Again</p>
+                    </div>
+                    <!-- Value 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <p class="text-lg font-semibold text-gray-800">2. Always confront society's negatives</p>
+                    </div>
+                    <!-- Value 3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <p class="text-lg font-semibold text-gray-800">3. Keep moving to keep changing</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="text-center">
+                <h4 class="text-xl font-semibold text-gray-800 mb-4">Follow Us</h4>
+                <div class="flex justify-center space-x-6">
+                    <!-- Facebook Icon -->
+                    <a href="#" class="text-gray-500 hover:text-blue-700 transition duration-300" aria-label="Facebook">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.494v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+                    </a>
+                    <!-- LinkedIn Icon -->
+                    <a href="#" class="text-gray-500 hover:text-blue-700 transition duration-300" aria-label="LinkedIn">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667h-3.554v-11.59h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.28h.002zM6.882 8.864h-3.554v11.586h3.554v-11.586zM5.11 3.554c-1.016 0-1.838.82-1.838 1.837s.822 1.837 1.838 1.837 1.837-.82 1.837-1.837-.82-1.837-1.837-1.837z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Core Services Section -->
+    <section id="services-section" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Title -->
+            <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-8" data-translate="services_title">OUR CORE SERVICES</h2>
+
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- Card 1: Medical Programs -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-center justify-center h-16 w-16 mx-auto bg-blue-100 rounded-full">
+                        <!-- Medical Icon (Doctor with Clipboard - Replace with actual SVG) -->
+                        <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900 text-center" data-translate="card1_title">Expert Medical Trainings</h3>
+                    <p class="mt-2 text-gray-600 text-center">Enhance your medical skills with our expert training programs.</p>
+                    <div class="mt-4 text-center">
+                        <button class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-200" data-translate="card2_cta">View Programs & Webinars</button>
+                    </div>
+                </div>
+
+                <!-- Card 2: Consulting -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-center justify-center h-16 w-16 mx-auto bg-blue-100 rounded-full">
+                        <!-- Consulting Icon (Graph - Replace with actual SVG) -->
+                        <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900 text-center" data-translate="card2_title">Business Consulting and Development</h3>
+                    <p class="mt-2 text-gray-600 text-center" data-translate="card2_snippet">Healthcare business research support</p>
+                    <div class="mt-4 text-center">
+                        <button class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-200" data-translate="card2_cta">Book a Consultation</button>
+                    </div>
+                </div>
+
+                <!-- Card 3: Medical Equipment Financing -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-center justify-center h-16 w-16 mx-auto bg-blue-100 rounded-full">
+                        <!-- Medical Equipment Icon (Ultrasound - Replace with actual SVG) -->
+                        <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7m14 9l-7-7-7 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900 text-center" data-translate="card3_title">MEDICAL EQUIPMENT FINANCING</h3>
+                    <p class="mt-2 text-gray-600 text-center" data-translate="card3_snippet">Get financing to procure medical equipment</p>
+                    <div class="mt-4 text-center">
+                        <button class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-200" data-translate="card3_cta">Get a quotation</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+       
+
+    <!-- Impact Bar -->
+    <section class="bg-gray-100 py-12" id = "impact-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 text-center">
+                
+                <!-- Partnership -->
+                <div>
+                    <p class="text-4xl font-bold text-blue-900" data-translate="stat_years_num">10+</p>
+                    <p class="mt-2 text-lg text-gray-600" data-translate="stat_years_desc">Partners</p>
+                </div>
+
+                <!--Medical Professionals Trained -->
+                <div>
+                    <p class="text-4xl font-bold text-blue-900" data-translate="stat_hospitals_num">500+</p>
+                    <p class="mt-2 text-lg text-gray-600" data-translate="stat_healthcare_professionals_desc">MEDICAL PROFESSIONALS Trained</p>
+                </div>
+
+                <!-- Businesses consulted -->
+                <div>
+                    <p class="text-4xl font-bold text-blue-900" data-translate="stat_ventures_num">20+</p>
+                    <p class="mt-2 text-lg text-gray-600" data-translate="stat_ventures_desc">BUSINESSES consulted</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer Section -->
+    <footer id="contact-section" class="bg-gray-100 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+                <!-- Column 1: Branding -->
+                <div>
+                    <img 
+                        src="Black-on-White.png" 
+                        alt="Africa Asia Health Dynamics Logo" 
+                        class="h-10 md:h-12 rounded-lg object-contain mb-4"
+                        data-translate="footer_logo"
+                        onerror="this.onerror=null; this.src='https://placehold.co/150x50/FFFFFF/000000?text=Logo+Not+Found'"
+                    >
+                    <p class="text-gray-600" data-translate="footer_brand">AFRICA ASIA HEALTH DYNAMICS</p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-900 mb-4" data-translate="footer_quick_title">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#about-section" class="text-gray-600 hover:text-blue-700" data-translate="footer_link_about">ABOUT US</a></li>
+                        <li><a href="#services-section" class="text-gray-600 hover:text-blue-700" data-translate="footer_link_services">SERVICES</a></li>
+                        <li><a href="#contact-section" class="text-gray-600 hover:text-blue-700" data-translate="footer_link_contact">CONTACT</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Our Services -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-900 mb-4" data-translate="footer_services_title">Our Services</h4>
+                    <ul class="space-y-2">
+                        <li><p class="text-gray-600" data-translate="footer_service_1">Medical Trainings</p></li>
+                        <li><p class="text-gray-600" data-translate="footer_service_2">Consulting Services</p></li>
+                        <li><p class="text-gray-600" data-translate="footer_service_3">Equipment Financing</p></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact Us -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-900 mb-4" data-translate="footer_contact_title">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li><p class="text-gray-600" data-translate="footer_contact_phone">Phone: +254 7XX XXXX XXX</p></li>
+                        <li><p class="text-gray-600" data-translate="footer_contact_email">Email: info@aa-healthdynamics.com</p></li>
+                        <li><p class="text-gray-600" data-translate="footer_contact_offices">Offices: Nairobi, Kenya / Tokyo, Japan</p></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Horizontal Rule -->
+            <hr class="border-gray-300 my-6">
+
+            <!-- Copyright -->
+            <div class="text-center text-gray-500">
+                &copy; <span id="copyright-year">2025</span> | <span data-translate="footer_copyright">AFRICA ASIA HEALTH DYNAMICS</span>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Update Copyright Year Dynamically -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        });
+    </script>
+
+</main>
+
+</body>
+</html>
+
+</main>
+
+</body>
+</html>
