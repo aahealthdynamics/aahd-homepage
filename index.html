@@ -22,6 +22,39 @@
             scroll-behavior: smooth;
         }
         /* NOTE: Removed .header-end-cap CSS as it conflicts with centering */
+
+        /* --- CSS for Partners Grid --- */
+        .partners-grid {
+            display: grid;
+            /* 3 equal-width columns for desktop */
+            grid-template-columns: repeat(3, 1fr);
+            /* Vertical gap of 40px, horizontal gap of 20px */
+            gap: 40px 20px;
+            /* Horizontally center the logos within their cells */
+            justify-items: center;
+            /* Vertically center the logos within their cells */
+            align-items: center;
+        }
+
+        .partners-grid img {
+            /* Set a uniform max-height for all logos */
+            max-height: 60px;
+            width: auto; /* Maintain aspect ratio */
+        }
+
+        /* Responsive layout for mobile screens */
+        @media (max-width: 480px) {
+            .partners-grid {
+                /* Switch to a single column on small screens */
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Custom class for smaller partner logos */
+        .logo-small {
+            max-height: 40px !important; /* Reduced height */
+        }
+
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -29,6 +62,8 @@
 <!-- Language Toggle JavaScript Logic and Mobile Menu Handlers -->
 <script>
     // 1. Define Translation Data (Central source of truth for all translatable text)
+    // Data object containing all translations for supported languages.
+    // Each key corresponds to a 'data-translate' attribute in the HTML.
     const translations = {
         'EN': {
             'home': 'Home',
@@ -41,6 +76,17 @@
             'hero_heading_2': 'THE POTENTIAL OF AFRICA.',
             'cta_explore': 'EXPLORE WITH US',
             'cta_consult': 'CONSULT WITH US',
+            'hero_title': 'Empowering Excellence in Healthcare',
+            'hero_subtitle': 'Bridging the precision of Japan with the potential of Africa — through world-class medical training, reliable consulting, and flexible equipment financing solutions.',
+            'hero_trust': 'Trusted by 500+ clinics and leading medical professionals globally.',
+            'hero_cta_explore': 'Explore Our Programs',
+            'hero_cta_consult': 'Consult with Us',
+            'about_title': 'ABOUT US',
+            'about_intro': 'We are a specialized consulting firm dedicated to bridging the healthcare gap between Asia and Africa. We provide expert medical training, strategic business consulting for Japanese and Asian companies entering the African market, and facilitate financing for essential medical equipment and devices.',
+            'mission_title': 'Our Mission',
+            'mission_text': 'Resolving local medical issues by empowering local medical workers.',
+            'vision_title': 'Our Vision',
+            'vision_text': 'Continuing to take on emerging countries as a business development professional.',
             'stat_years_num': '10+',
             'stat_years_desc': 'Partners',
             'stat_hospitals_num': '500+',
@@ -49,6 +95,7 @@
             'stat_ventures_desc': 'BUSINESSES consulted',
             'services_title': 'OUR CORE SERVICES',
             'card1_title': 'Expert Medical Trainings',
+            'card1_desc': 'Enhance your medical skills with our expert training programs.',
             'card1_cta': 'View Programs & Webinars',
             'card2_title': 'Business Consulting and Development',
             'card2_snippet': 'Healthcare business research support',
@@ -58,10 +105,13 @@
             'card3_cta': 'Learn More & Get Quotation',
             'footer_logo': 'footer_logo',
             'footer_brand': 'AFRICA ASIA HEALTH DYNAMICS',
+            'footer_brand': 'Africa Asia Health Dynamics Ltd.',
             'footer_quick_title': 'Quick Links',
             'footer_link_about': 'ABOUT US',
             'footer_link_services': 'SERVICES',
             'footer_link_contact': 'CONTACT',
+            'footer_link_about': 'About Us',
+            'footer_link_services': 'Services',
             'footer_services_title': 'Our Services',
             'footer_service_1': 'Medical Trainings',
             'footer_service_2': 'Consulting Services',
@@ -71,6 +121,7 @@
             'footer_contact_email': 'Email: info@aa-healthdynamics.com',
             'footer_contact_offices': 'Offices: Nairobi, Kenya / Tokyo, Japan',
             'footer_copyright': 'AFRICA ASIA HEALTH DYNAMICS',
+            'footer_copyright': 'Africa Asia Health Dynamics Ltd.',
             'lang_code': 'EN'
         },
         'JA': {
@@ -84,6 +135,17 @@
             'hero_heading_2': 'アフリカの可能性。',
             'cta_explore': '私たちと探検',            
             'cta_consult': 'ご相談ください',
+            'hero_title': '医療における卓越性の強化',
+            'hero_subtitle': '世界クラスの医療トレーニング、信頼性の高いコンサルティング、柔軟な機器融資ソリューションを通じて、日本の精度とアフリカの可能性を繋ぎます。',
+            'hero_trust': '世界中の500以上のクリニックと主要な医療専門家から信頼されています。',
+            'hero_cta_explore': 'プログラムを探す',
+            'hero_cta_consult': 'ご相談ください',
+            'about_title': '私たちについて',
+            'about_intro': '私たちは、アジアとアフリカの医療格差を埋めることに専念する専門コンサルティング会社です。専門的な医療トレーニング、アフリカ市場に参入する日本およびアジア企業向けの戦略的ビジネスコンサルティング、そして不可欠な医療機器の融資を促進します。',
+            'mission_title': '私たちの使命',
+            'mission_text': '地元の医療従事者を力づけることで、地域の医療問題を解決する。',
+            'vision_title': '私たちのビジョン',
+            'vision_text': '事業開発のプロフェッショナルとして、新興国に挑戦し続ける。',
             'stat_years_num': '10+',
             'stat_years_desc': 'パートナー',
             'stat_hospitals_num': '500+',
@@ -92,6 +154,8 @@
             'stat_ventures_desc': '相談を受けた企業',
             'services_title': '当社のコアサービス',
             'card1_title': '専門医療トレーニング',            
+            'card1_title': '専門医療トレーニング',
+            'card1_desc': '専門的なトレーニングプログラムで医療スキルを向上させます。',
             'card1_cta': 'プログラムとウェビナーを見る',
             'card2_title': 'ビジネスコンサルティングと開発',
             'card2_snippet': '医療ビジネス調査サポート',
@@ -101,8 +165,10 @@
             'card3_cta': '詳細と見積もり',
             'footer_logo': 'footer_logo',
             'footer_brand': 'アフリカアジア健康力学',
+            'footer_brand': 'アフリカ・アジア・ヘルス・ダイナミクス株式会社',
             'footer_quick_title': 'クイックリンク',
             'footer_link_about': '私たちに関しては',
+            'footer_link_about': '私たちについて',
             'footer_link_services': 'サービス',
             'footer_link_contact': '接触',
             'footer_services_title': '当社のサービス',
@@ -114,32 +180,56 @@
             'footer_contact_email': 'Eメール: info@aa-healthdynamics.com',
             'footer_contact_offices': 'オフィス: ナイロビ、ケニア / 東京、日本',
             'footer_copyright': 'アフリカアジア健康力学',
+            'footer_copyright': 'アフリカ・アジア・ヘルス・ダイナミクス株式会社',
             'lang_code': 'JA',
         }
     };
 
     function toggleLanguage() {
+    /**
+     * Translates the page content based on the language selected.
+     * It reads the current language from the toggle button, determines the new language,
+     * and updates all elements with a 'data-translate' attribute.
+     */
+    function translatePage() {
         const langButton = document.getElementById('lang-toggle-btn');
+        if (!langButton) {
+            console.error("Language toggle button not found.");
+            return;
+        }
         
         // 1. Determine the target language (JA if current is EN, EN if current is JA)
         const currentLang = langButton.textContent.trim() === 'EN' ? 'JA' : 'EN';
         const newText = translations[currentLang];
+        // Determine the target language by checking the button's current text.
+        const currentLangCode = langButton.textContent.trim();
+        const targetLang = currentLangCode === 'EN' ? 'JA' : 'EN';
+        const translationSet = translations[targetLang];
 
         // 2. Update button text and HTML lang attribute
         langButton.textContent = newText.lang_code;
         document.documentElement.lang = newText.lang_code.toLowerCase();
+        // Update the language attribute of the <html> tag for accessibility and SEO.
+        document.documentElement.lang = targetLang.toLowerCase();
 
         // 3. Functional Part: Use querySelectorAll to find all translatable elements
+        // Find all elements that have the 'data-translate' attribute.
         const elementsToUpdate = document.querySelectorAll('[data-translate]');
 
         // 4. Loop through all found elements and apply the new translation
+        // Loop through each element and update its text content with the new translation.
         elementsToUpdate.forEach(element => {
             const key = element.getAttribute('data-translate');
             
             if (newText[key]) {
                 element.textContent = newText[key];
+            if (translationSet[key]) {
+                element.textContent = translationSet[key];
             }
         });
+
+        // Finally, update the language toggle button's text to show the new current language.
+        langButton.querySelector('span').textContent = translationSet.lang_code;
     }
 
     
@@ -209,6 +299,7 @@
                 <button 
                     id="lang-toggle-btn"
                     onclick="toggleLanguage()"
+                    onclick="translatePage()"
                     class="flex items-center space-x-1.5 px-3 py-1.5 text-sm font-medium text-white border border-white/40 rounded-full hover:bg-white/10 transition duration-200"
                 >
                     <span id="lang-toggle-text">EN</span>
@@ -265,23 +356,28 @@
         <div class="relative z-10 container mx-auto px-4 py-20 md:py-24 lg:py-28 flex flex-col items-center text-center">
             <!-- Hero Text (changed to white for contrast) -->
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-white mb-6 max-w-5xl" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.6);">
+            <h1 data-translate="hero_title" class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-white mb-6 max-w-5xl" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.6);">
                 Empowering Excellence in Healthcare
             </h1>
             <p class="text-xl sm:text-2xl text-gray-200 mb-10 max-w-4xl" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.6);">
+            <p data-translate="hero_subtitle" class="text-xl sm:text-2xl text-gray-200 mb-10 max-w-4xl" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.6);">
                 Bridging the precision of Japan with the potential of Africa — through world-class medical training, reliable consulting, and flexible equipment financing solutions.
             </p>
 
             <!-- "Trusted by" Line (changed to white for contrast) -->
             <div class="mb-8 text-base text-gray-200" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.6);">
+            <div data-translate="hero_trust" class="mb-8 text-base text-gray-200" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.6);">
                 Trusted by 500+ clinics and leading medical professionals globally.
             </div>
 
             <!-- CTA Buttons (no changes needed) -->
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <a href="https://medicscan.org/" class="inline-block px-10 py-4 text-xl font-semibold text-white bg-blue-900 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50" target="_blank" rel="noopener noreferrer">
+                <a data-translate="hero_cta_explore" href="https://medicscan.org/" class="inline-block px-10 py-4 text-xl font-semibold text-white bg-blue-900 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50" target="_blank" rel="noopener noreferrer">
                     Explore Our Programs
                 </a>
                 <a href="#contact-us-section" class="inline-block px-10 py-4 text-xl font-semibold text-white bg-transparent border-2 border-white rounded-lg shadow-lg hover:bg-white hover:text-blue-900 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white/50">
+                <a data-translate="hero_cta_consult" href="#contact-us-section" class="inline-block px-10 py-4 text-xl font-semibold text-white bg-transparent border-2 border-white rounded-lg shadow-lg hover:bg-white hover:text-blue-900 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white/50">
                     Consult with Us
                 </a>
             </div>
@@ -303,6 +399,7 @@
            <!-- Introductory Paragraph -->
             <div class="max-w-4xl mx-auto text-center mb-12">
                 <p class="text-lg text-gray-700">
+                <p data-translate="about_intro" class="text-lg text-gray-700">
                    We are a specialized consulting firm dedicated to bridging the healthcare gap between Asia and Africa. We provide expert medical training, strategic business consulting for Japanese and Asian companies entering the African market, and facilitate financing for essential medical equipment and devices.
                </p>
            </div>
@@ -312,10 +409,14 @@
                 <div>
                     <h3 class="text-2xl font-bold text-blue-800 mb-3">Our Mission</h3>
                    <p class="text-lg text-gray-600">Resolving local medical issues by empowering local medical workers.</p>
+                    <h3 data-translate="mission_title" class="text-2xl font-bold text-blue-800 mb-3">Our Mission</h3>
+                   <p data-translate="mission_text" class="text-lg text-gray-600">Resolving local medical issues by empowering local medical workers.</p>
                 </div>
                 <div>
                     <h3 class="text-2xl font-bold text-blue-800 mb-3">Our Vision</h3>
                     <p class="text-lg text-gray-600">Continuing to take on emerging countries as a business development professional.</p>
+                    <h3 data-translate="vision_title" class="text-2xl font-bold text-blue-800 mb-3">Our Vision</h3>
+                    <p data-translate="vision_text" class="text-lg text-gray-600">Continuing to take on emerging countries as a business development professional.</p>
                 </div>
             </div>
 
@@ -338,37 +439,54 @@
                 </div>
             </div>
 
-           
-            
 
-            <!-- Meet Our Team Sub-section -->
-            <div class="mb-16">
+ <!-- Team section -->
+           <div class="mb-16">
                 <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">Meet Our Team</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Updated grid to handle 4 cards gracefully -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     <!-- Team Member 1 -->
                     <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                        <img src="Kenta-Hara.jpg" alt="Kenta-Hara" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4">
+                            <img src="Kenta-Hara.jpg" alt="Kenta-Hara" class="w-full h-full object-cover" style="object-position: 95% 20%;">
+                        </div>
                         <h4 class="text-xl font-semibold text-gray-900">Kenta Hara</h4>
                         <p class="text-blue-700 font-medium">CEO</p>
                         <p class="text-gray-600 mt-2 text-sm">Specializing in strategy and international partnerships.</p>
                     </div>
                     <!-- Team Member 2 -->
                     <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                        <img src="Patrick-Miruka.jpg" alt="Patrick-Miruka" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4">
+                            <img src="Patrick-Miruka.jpg" alt="Patrick-Miruka" class="w-full h-full object-cover" style="object-position: 80% 0%;">
+                        </div>
                         <h4 class="text-xl font-semibold text-gray-900">Patrick Miruka</h4>
                         <p class="text-blue-700 font-medium">Director of Business Development</p>
                         <p class="text-gray-600 mt-2 text-sm">Expert in local market development and partnerships.</p>
                     </div>
                     <!-- Team Member 3 -->
                     <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                        <img src="Esther-Mugo.jpeg" alt="Esther Mugo" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4">
+                            <img src="Esther-Mugo.jpeg" alt="Esther Mugo" class="w-full h-full object-cover" style="object-position: center 20%;">
+                        </div>
                         <h4 class="text-xl font-semibold text-gray-900">Esther Mugo</h4>
                         <p class="text-blue-700 font-medium">Director, Medical Education</p>
                         <p class="text-gray-600 mt-2 text-sm">Facilitates running medical training programs.</p>
                     </div>
+                    <!-- Team Member 4 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4">
+                            <img src="sharon-profile pic.jpeg" alt="Sharon" class="w-full h-full object-cover object-center">
+                        </div>
+                        <h4 class="text-xl font-semibold text-gray-900">Sharon Mwendwa</h4>
+                        <p class="text-blue-700 font-medium">Executive Program Assistant</p>
+                        <p class="text-gray-600 mt-2 text-sm">Assisting in program and project management.</p>
+                    </div>
                 </div>
             </div>
 
+            
+
+            
          </div>
      </section>
 
@@ -376,45 +494,43 @@
             <section class="bg-white py-16">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">Our Partners</h3>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-center">
+                    <div class="partners-grid">
                         <!-- Partner Logo 1 -->
-                        <div class="flex justify-center">
-                            <img src="butterfly-logo.png" alt="Partner Logo A" class="h-16 object-contain">
+                        <div>
+                            <img src="Fujifilm-Logo.png" alt="Partner Logo A">
                         </div>
                         <!-- Partner Logo 2 -->
-                        <div class="flex justify-center">
-                            <img src="Fujifilm_logo.svg" alt="Partner Logo B" class="h-16 object-contain">
+                        <div>
+                            <img src="Butterfly-Logo.webp" alt="Partner Logo B">
                         </div>
                         <!-- Partner Logo 3 -->
-                        <div class="flex justify-center">
-                            <img src="KNH.jpeg" alt="Partner Logo C" class="h-16 object-contain">
+                        <div>
+                            <img src="KonicaMinoltaLogo.png" alt="Partner Logo C">
                         </div>
-                        <!-- Partner Logo 4 -->
-                        <div class="flex justify-center">
-                            <img src="JICA.png" alt="Partner Logo D" class="h-16 object-contain">
-                        </div>
+                        
                         <!-- Partner Logo 5 -->
-                        <div class="flex justify-center">
-                            <img src="Haifu.jpeg" alt="Partner Logo E" class="h-16 object-contain">
+                        <div>
+                            <img src="Ritsumeikan-yoko.gif" alt="Partner Logo E">
                         </div>
                         <!-- Partner Logo 6 -->
-                        <div class="flex justify-center">
-                            <img src="Ritsumeikan-University.png" alt="Partner Logo F" class="h-16 object-contain">
+                        <div>
+                            <img src="IST-Logo.jpeg" alt="Partner Logo F">
                         </div>
                          <!-- Partner Logo 7 -->
-                        <div class="flex justify-center">
-                            <img src="METI.jpeg" alt="Partner Logo F" class="h-16 object-contain">
+                        <div>
+                            <img src="KNH-Logo.png" alt="KNH Logo">
                         </div>
                          <!-- Partner Logo 8 -->
-                        <div class="flex justify-center">
-                            <img src="Institute-of-Tokyo.jpeg" alt="Partner Logo F" class="h-16 object-contain">
+                        <div>
+                            <img src="Pumwani-Logo.png" alt="Pumwani Hospital Logo">
                         </div>
                         <!-- Partner Logo 9 -->
-                        <div class="flex justify-center">
-                            <img src="Pumwani-hospital.jpeg" alt="Partner Logo F" class="h-16 object-contain">
+                        <div>
+                            <img src="METI.jpeg" alt="METI Logo">
                         </div>
                      </div>
                 </div>
+
             </section>
 
      <!-- Core Services Section -->
@@ -428,50 +544,50 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                 <!-- Card 1: Medical Programs -->
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <div class="flex items-center justify-center h-16 w-16 mx-auto bg-blue-100 rounded-full">
-                        <!-- Medical Icon (Doctor with Clipboard - Replace with actual SVG) -->
-                        <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="mt-4 text-xl font-semibold text-gray-900 text-center" data-translate="card1_title">Expert Medical Trainings</h3>
-                    <p class="mt-2 text-gray-600 text-center">Enhance your medical skills with our expert training programs.</p>
-                    <div class="mt-4 text-center">
+                <div class="relative rounded-lg shadow-lg overflow-hidden bg-cover bg-center h-96" style="background-image: url('news-mage1-training.jpg');">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent"></div>
+                    <div class="relative p-6 pb-10 flex flex-col h-full text-white text-center">
+                        <div class="flex items-center justify-center h-16 w-16 mx-auto bg-white/20 rounded-full">
+                            <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="mt-4 text-xl font-semibold" data-translate="card1_title">Expert Medical Trainings</h3>
+                        <p class="mt-2 text-gray-200 flex-grow">Enhance your medical skills with our expert training programs.</p>
+                        <p data-translate="card1_desc" class="mt-2 text-gray-200 flex-grow">Enhance your medical skills with our expert training programs.</p>
                         <a href="https://medicscan.org/" target="_blank" rel="noopener noreferrer" class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-200 inline-block" data-translate="card1_cta">View Programs & Webinars</a>
                     </div>
                 </div>
 
                 <!-- Card 2: Consulting -->
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <div class="flex items-center justify-center h-16 w-16 mx-auto bg-blue-100 rounded-full">
-                        <!-- Consulting Icon (Graph - Replace with actual SVG) -->
-                        <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                        </svg>
-                    </div>
-                    <h3 class="mt-4 text-xl font-semibold text-gray-900 text-center" data-translate="card2_title">Business Consulting and Development</h3>
-                    <p class="mt-2 text-gray-600 text-center" data-translate="card2_snippet">Healthcare business research support</p>
-                    <div class="mt-4 text-center">
+                <div class="relative rounded-lg shadow-lg overflow-hidden bg-cover bg-center h-96" style="background-image: url('news-mage1-training.jpg');">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent"></div>
+                    <div class="relative p-6 pb-10 flex flex-col h-full text-white text-center">
+                        <div class="flex items-center justify-center h-16 w-16 mx-auto bg-white/20 rounded-full">
+                            <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                        <h3 class="mt-4 text-xl font-semibold" data-translate="card2_title">Business Consulting and Development</h3>
+                        <p class="mt-2 text-gray-200 flex-grow" data-translate="card2_snippet">Healthcare business research support</p>
                         <a href="https://medicscan.org/" target="_blank" rel="noopener noreferrer" class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-200 inline-block" data-translate="card2_cta">Book a Consultation</a>
                     </div>
                 </div>
 
                 <!-- Card 3: Medical Equipment Financing -->
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <div class="flex items-center justify-center h-16 w-16 mx-auto bg-blue-100 rounded-full">
-                        <!-- Medical Equipment Icon (Ultrasound - Replace with actual SVG) -->
-                        <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7m14 9l-7-7-7 7"></path>
-                        </svg>
-                    </div>
-                    <h3 class="mt-4 text-xl font-semibold text-gray-900 text-center" data-translate="card3_title">MEDICAL EQUIPMENT FINANCING</h3>
-                    <p class="mt-2 text-gray-600 text-center" data-translate="card3_snippet">Get financing to procure medical equipment</p>
-                    <div class="mt-4 text-center">
+                <div class="relative rounded-lg shadow-lg overflow-hidden bg-cover bg-center h-96" style="background-image: url('news-mage1-training.jpg');">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent"></div>
+                    <div class="relative p-6 pb-10 flex flex-col h-full text-white text-center">
+                        <div class="flex items-center justify-center h-16 w-16 mx-auto bg-white/20 rounded-full">
+                            <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7m14 9l-7-7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="mt-4 text-xl font-semibold" data-translate="card3_title">MEDICAL EQUIPMENT FINANCING</h3>
+                        <p class="mt-2 text-gray-200 flex-grow" data-translate="card3_snippet">Get financing to procure medical equipment</p>
                         <a href="https://finance-lp.onrender.com/" target="_blank" rel="noopener noreferrer" class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-200 inline-block" data-translate="card3_cta">Learn More & Get Quotation</a>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -482,47 +598,42 @@
             
             <!-- Section Title -->
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-extrabold text-blue-900">News & Collaborative Stories</h2>
+                <h2 class="text-3xl font-extrabold text-blue-900">News</h2>
             </div>
 
             <!-- News Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                <!-- News Card 1 -->
-                <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
-                    <img 
-                        src="https://placehold.co/200x200/E0F2F7/000000?text=Training" 
-                        alt="Training Session" 
-                        class="w-48 h-48 object-cover rounded-lg mb-4"
-                    >
-                    <p class="font-bold text-lg text-gray-900 mb-2">Revolutionizing Medical Training in Africa</p>
-                    <p class="text-base text-gray-700 mb-4">Our POCUS TOT training brought together 27 passionate doctors, clinical officers and Nurses for the cutting-edge POCUS training in collaboration with Institute of Science Tokyo fostering a new era of expertise and patient care in Kenya.</p>
-                    <a href="https://finance-lp.onrender.com/" class="text-blue-700 hover:underline font-semibold">Read More &rarr;</a>
-                </div>
+               <!-- News Card 1: Training -->
+               <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col text-center">
+                   <h3 class="font-bold text-2xl text-blue-900 mb-4">Training</h3>
+                   <div class="flex-grow flex flex-col justify-center">
+                       <h4 class="font-bold text-xl mb-2 text-gray-900">Revolutionizing Medical Training in Africa</h4>
+                       <p class="text-base text-gray-700 mb-4">Our POCUS TOT training brought together 27 passionate doctors, clinical officers and Nurses for the cutting-edge POCUS training...</p>
+                   </div>
+                   <a href="#" class="text-blue-700 hover:underline font-semibold self-center mt-auto">Read More &rarr;</a>
+               </div>
 
-                <!-- News Card 2 -->
-                <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
-                    <img 
-                        src="https://placehold.co/200x200/E0F2F7/000000?text=Partnership" 
-                        alt="Partnership Signing" 
-                        class="w-48 h-48 object-cover rounded-lg mb-4"
-                    >
-                    <p class="font-bold text-lg text-gray-900 mb-2">Strategic Partnership with Japanese Companies</p>
-                    <p class="text-base text-gray-700 mb-4">We've forged a new alliance with leading Japanese medical technology companies to help them do business or research in Kenya.</p>
-                    <a href="https://finance-lp.onrender.com/" class="text-blue-700 hover:underline font-semibold">Read More &rarr;</a>
-                </div>
+                <!-- News Card 2: Partnership -->
+               <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col text-center">
+                   <h3 class="font-bold text-2xl text-blue-900 mb-4">Partnership</h3>
+                   <div class="flex-grow flex flex-col justify-center">
+                       <h4 class="font-bold text-xl mb-2 text-gray-900">Strategic Partnership with Japanese Companies</h4>
+                       <p class="text-base text-gray-700 mb-4">We've forged a new alliance with leading Japanese medical technology companies to help them do business or research in Kenya.</p>
+                   </div>
+                   <a href="#" class="text-blue-700 hover:underline font-semibold self-center mt-auto">Read More &rarr;</a>
+               </div>
 
-                <!-- News Card 3 -->
-                <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
-                    <img 
-                        src="https://placehold.co/200x200/E0F2F7/000000?text=Financing" 
-                        alt="Consulting Session" 
-                        class="w-48 h-48 object-cover rounded-lg mb-4"
-                    >
-                    <p class="font-bold text-lg text-gray-900 mb-2">Empowering Healthcare facilities in Kenya</p>
-                    <p class="text-base text-gray-700 mb-4">Our financing division is actively supporting doctors and healthcare businesses, providing access to crucial financing for procurement of medical devices.</p>
-                    <a href="https://finance-lp.onrender.com/" class="text-blue-700 hover:underline font-semibold">Read More &rarr;</a>
-                </div>
+                <!-- News Card 3: Financing -->
+               <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col text-center">
+                   <h3 class="font-bold text-2xl text-blue-900 mb-4">Financing</h3>
+                   <div class="flex-grow flex flex-col justify-center">
+                       <h4 class="font-bold text-xl mb-2 text-gray-900">Empowering Healthcare Facilities in Kenya</h4>
+                       <p class="text-base text-gray-700 mb-4">Our financing division is actively supporting doctors and healthcare businesses, providing access to crucial financing for procurement of medical devices.</p>
+                   </div>
+                   <a href="#" class="text-blue-700 hover:underline font-semibold self-center mt-auto">Read More &rarr;</a>
+               </div>
+
             </div>
         </div>
     </section>
