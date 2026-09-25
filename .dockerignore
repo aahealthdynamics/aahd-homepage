@@ -1,6 +1,6 @@
 .git
 .gitignore
+.dockerignore
+.DS_Store
 Dockerfile
-*.md
-*.log
-node_modules
+README.md
