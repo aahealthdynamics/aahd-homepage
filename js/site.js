@@ -29,10 +29,7 @@
       const stored = localStorage.getItem(STORAGE_KEY);
       if (SUPPORTED.includes(stored)) return stored;
     } catch (e) { /* storage unavailable */ }
-    const nav = (navigator.language || '').toLowerCase();
-    if (nav.startsWith('ja')) return 'ja';
-    if (nav.startsWith('fr')) return 'fr';
-    return 'en';
+    return 'en'; // English is the default; JA / FR only when chosen via the switch or ?lang=
   }
 
   function applyLang(lang) {
