@@ -8,13 +8,6 @@
 
 const CONTACT_FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyV5eKQQ5IK_w27WAOJ9PoOFaNPJFC78U6zD3XY4aeXa7Whn8CigC765TWgBBbX0_7O/exec';
 
-// Shown while microCMS is loading or unavailable (latest three items as of Sep 2026).
-const NEWS_FALLBACK = [
-  { id: '63gp2xe1co', publishedAt: '2026-04-08T15:13:31.051Z', title: 'AA Health Dynamics、立命館ソーシャルインパクトファンドよりアフリカの医療課題を解決するための医療機器ファイナンス事業資金を調達', title_en: 'AA Health Dynamics raises medical equipment finance funding from the Ritsumeikan Social Impact Fund to tackle healthcare challenges in Africa', title_fr: "AA Health Dynamics lève des fonds auprès du Ritsumeikan Social Impact Fund pour son activité de financement d'équipements médicaux en Afrique", thumbnail: { url: 'https://images.microcms-assets.io/assets/4b41e2d922394f53af13d3c2f9e57e09/2b63067e17d54a4893731e79d45f6c4e/%E3%83%95%E3%82%99%E3%83%AD%E3%82%AF%E3%82%99%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB%20(1).png' } },
-  { id: 'w3uapmv05', publishedAt: '2025-12-22T01:00:00.000Z', title: '東京バイオデザイン協会と途上国医療の課題解決に向けたMOUを締結', title_en: 'MOU signed with the Tokyo Biodesign Association to address healthcare challenges in developing countries', title_fr: "Signature d'un protocole d'accord avec la Tokyo Biodesign Association pour relever les défis de santé dans les pays en développement", thumbnail: { url: 'https://images.microcms-assets.io/assets/4b41e2d922394f53af13d3c2f9e57e09/92f3ab6519c8499e8566721a743ff492/%E3%83%95%E3%82%99%E3%83%AD%E3%82%AF%E3%82%99%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB%20(2).png' } },
-  { id: 'yxh430kdq5', publishedAt: '2025-08-19T00:00:00.000Z', title: 'AA Health Dynamics、TICAD9に出展 @パシフィコ横浜', title_en: 'AA Health Dynamics exhibits at TICAD9, Pacifico Yokohama', title_fr: 'AA Health Dynamics expose à la TICAD9, Pacifico Yokohama', thumbnail: { url: 'https://images.microcms-assets.io/assets/4b41e2d922394f53af13d3c2f9e57e09/3cfcea478cfa44e4bc264c952ec6c58c/IMG_5795%203.JPG' } }
-];
-
 const I18N = {
   en: {
     meta_title: 'Africa Asia Health Dynamics Limited | Medical Training & Medical Equipment Financing in Kenya',

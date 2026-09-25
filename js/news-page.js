@@ -110,14 +110,9 @@
     listEl.innerHTML = `<p class="news-empty">${A.escapeHtml(A.t('news_loading'))}</p>`;
     const q = { limit: LIMIT, offset: (page - 1) * LIMIT, orders: '-publishedAt' };
     const ke = await A.fetchCMS(CMS_CONFIG.kenyaEndpoint, q);
-    if (ke && Array.isArray(ke.contents) && (ke.contents.length || page > 1)) {
-      listData = { contents: ke.contents, totalCount: ke.totalCount || 0, source: 'ke' };
-    } else {
-      const jp = await A.fetchCMS(CMS_CONFIG.sharedEndpoint, q);
-      listData = jp && Array.isArray(jp.contents)
-        ? { contents: jp.contents, totalCount: jp.totalCount || 0, source: 'jp' }
-        : { contents: NEWS_FALLBACK, totalCount: NEWS_FALLBACK.length, source: 'jp' };
-    }
+    listData = ke && Array.isArray(ke.contents)
+      ? { contents: ke.contents, totalCount: ke.totalCount || 0, source: 'ke' }
+      : { contents: [], totalCount: 0, source: 'ke' };
     renderList();
   }
 

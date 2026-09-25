@@ -24,7 +24,7 @@ English is the default. `?lang=ja` / `?lang=fr` (or the switch in the nav) chang
 
 ## News
 
-News lives in the same microCMS service as the Japan site, in a Kenya-specific list API (`news-ke`, English first). `docs/microcms-kenya-news.md` lists the fields to create. The top page shows the latest three items; `news.html` lists all items (9 per page) and renders an article at `news.html?id=<id>`. Until `news-ke` exists or has content, both pages fall back to the Japan site's `news` API and link to its article pages.
+News lives in the same microCMS service as the Japan site, in a Kenya-specific list API (`news-ke`, English first). `docs/microcms-kenya-news.md` lists the fields to create. The top page shows the latest three items; `news.html` lists all items (9 per page) and renders an article at `news.html?id=<id>`. The top-page section is hidden until `news-ke` has published items; the Japan site's news is never shown here.
 
 ## Contact form
 

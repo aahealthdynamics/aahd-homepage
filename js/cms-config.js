@@ -10,8 +10,6 @@ const CMS_CONFIG = {
   // for the fields to create. Articles are rendered by this site at /news.html?id=<id>.
   kenyaEndpoint: 'news-ke',
 
-  // Japan news: used as a fallback until the Kenya API exists or has content.
-  // Those articles are rendered by the Japan site.
-  sharedEndpoint: 'news',
+  // Japan site, used only when an article's "link" points there.
   sharedArticleBase: 'https://aa-healthdynamics.com',
 };

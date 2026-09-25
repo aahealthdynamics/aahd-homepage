@@ -199,30 +199,27 @@
       </a>`;
   }
 
+  // Kenya news only: the section stays hidden until the Kenya API has published items.
   function renderNews() {
     const grid = document.getElementById('top-news');
     if (!grid) return;
-    const t = I18N[currentLang];
-    const items = cmsItems || NEWS_FALLBACK;
-    const source = cmsItems ? newsSource : 'jp';
-    if (!items.length) {
-      grid.innerHTML = `<p class="news-empty">${escapeHtml(t.news_empty)}</p>`;
+    const section = grid.closest('section');
+    if (!cmsItems || !cmsItems.length) {
+      if (section) section.hidden = true;
       return;
     }
+    if (section) section.hidden = false;
     const delays = ['', 'reveal-delay-1', 'reveal-delay-2'];
-    grid.innerHTML = items.slice(0, 3).map((item, i) => newsCard(item, source, delays[i % 3])).join('');
+    grid.innerHTML = cmsItems.slice(0, 3).map((item, i) => newsCard(item, newsSource, delays[i % 3])).join('');
   }
 
   async function loadTopNews() {
     if (!document.getElementById('top-news')) return;
     const ke = await fetchCMS(CMS_CONFIG.kenyaEndpoint, { limit: 3, orders: '-publishedAt' });
     if (ke && Array.isArray(ke.contents) && ke.contents.length) {
-      cmsItems = ke.contents; newsSource = 'ke'; renderNews(); return;
+      cmsItems = ke.contents; newsSource = 'ke';
     }
-    const jp = await fetchCMS(CMS_CONFIG.sharedEndpoint, { limit: 3, orders: '-publishedAt' });
-    if (jp && Array.isArray(jp.contents) && jp.contents.length) {
-      cmsItems = jp.contents; newsSource = 'jp'; renderNews();
-    }
+    renderNews();
   }
 
   // ---------- Hero slider (crossfade) ----------
