@@ -20,7 +20,7 @@ The hero crossfades `assets/images/pocus-training-1.jpg`, `-2.jpg` and `-3.jpg` 
 
 ## Languages
 
-English is the default. `?lang=ja` / `?lang=fr` (or the switch in the nav) change the language; the choice is remembered in `localStorage`. Browser language is used on first visit.
+English is always the default. `?lang=ja` / `?lang=fr` (or the EN / JP / FR switch in the nav) change the language; the choice is remembered in `localStorage`.
 
 ## News
 
@@ -32,7 +32,7 @@ Posts to the existing Google Apps Script endpoint (`CONTACT_FORM_ENDPOINT` in `j
 
 ## To do
 
-- Confirm the production domain and update `canonical`, `og:url` and the JSON-LD in `index.html` (proposal: `ke.aa-healthdynamics.com`).
+- Production URL is https://ke.aa-healthdynamics.com/ (CNAME to Render). The old Render URL redirects there.
 - Optional: add `title_en` / `title_fr` fields in microCMS for bilingual news titles.
 
 ## Local preview
