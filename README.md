@@ -35,6 +35,13 @@ Posts to the existing Google Apps Script endpoint (`CONTACT_FORM_ENDPOINT` in `j
 - Production URL is https://ke.aa-healthdynamics.com/ (CNAME to Render). The old Render URL redirects there.
 - Optional: add `title_en` / `title_fr` fields in microCMS for bilingual news titles.
 
+## SEO and hosting
+
+- `robots.txt` and `sitemap.xml` are served from the root. `scripts/build-sitemap.mjs` regenerates the sitemap from the static pages plus every Kenya news article; `.github/workflows/sitemap.yml` runs it daily and commits changes (which triggers a deploy).
+- `index.html` declares `hreflang` alternates for this site (`en-KE`) and the Japan site (`ja`, `en`). The Japan site should list `en-KE` in return.
+- Article pages (`news.html?id=…`) set their own canonical, description, Open Graph tags and `NewsArticle` JSON-LD from the CMS data.
+- `nginx.conf` enables gzip, sets cache headers (images 30 days, CSS/JS 1 day, HTML no-cache) and serves `404.html`.
+
 ## Local preview
 
 ```sh
