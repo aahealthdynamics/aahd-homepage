@@ -47,7 +47,7 @@ const I18N = {
     svc_label: 'Services', svc_title: 'Our Core Services',
     s1_title: 'Expert Medical Trainings', s1_text: 'Enhance your medical skills with our expert training programs.', s1_cta: 'View Programs & Webinars',
     news_cat_press: 'Press Release', news_cat_event: 'Event', news_cat_partnership: 'Partnership', news_cat_public: 'Public Project', news_cat_media: 'Media', news_cat_other: 'News',
-    s2_title: 'Medical Equipment Financing', s2_text: 'Get financing to procure medical equipment.', s2_cta: 'Learn More & Get Quotation', s2_href: 'https://finance-lp.onrender.com/',
+    s2_title: 'Medical Equipment Financing', s2_text: 'Get financing to procure medical equipment.', s2_cta: 'Learn More & Get Quotation', s2_href: 'https://med-device-frontend.onrender.com/apply',
     s3_title: 'Medical Device Registration Support', s3_text: 'Support for registering medical devices in Kenya. Healthcare business research and consulting support are also available.', s3_cta: 'Book a Consultation',
 
     news_label: 'News', news_title: 'News & Collaborative Stories',
@@ -113,7 +113,7 @@ const I18N = {
     svc_label: 'Services', svc_title: 'コアサービス',
     s1_title: '専門医療トレーニング', s1_text: '専門家による研修プログラムで、医療スキルを高める。', s1_cta: 'プログラム・ウェビナーを見る',
     news_cat_press: 'プレスリリース', news_cat_event: 'イベント', news_cat_partnership: 'パートナーシップ', news_cat_public: '公的事業', news_cat_media: 'メディア', news_cat_other: 'ニュース',
-    s2_title: '医療機器ファイナンス', s2_text: '医療機器を調達するためのファイナンスを提供。', s2_cta: '詳細・見積もりはこちら', s2_href: 'https://finance-lp.onrender.com/',
+    s2_title: '医療機器ファイナンス', s2_text: '医療機器を調達するためのファイナンスを提供。', s2_cta: '詳細・見積もりはこちら', s2_href: 'https://med-device-frontend.onrender.com/apply',
     s3_title: '医療機器登録支援', s3_text: 'ケニアにおける医療機器登録をサポート。医療ビジネスの調査・コンサルティング支援も承ります。', s3_cta: 'コンサルテーションを予約する',
 
     news_label: 'News', news_title: 'ニュース & 協働ストーリー',
@@ -179,7 +179,7 @@ const I18N = {
     svc_label: 'Services', svc_title: 'Nos services',
     s1_title: 'Formations médicales expertes', s1_text: 'Développez vos compétences médicales grâce à nos programmes de formation experts.', s1_cta: 'Voir les programmes et webinaires',
     news_cat_press: 'Communiqué', news_cat_event: 'Événement', news_cat_partnership: 'Partenariat', news_cat_public: 'Projet public', news_cat_media: 'Médias', news_cat_other: 'Actualité',
-    s2_title: "Financement d'équipements médicaux", s2_text: 'Obtenez un financement pour acquérir des équipements médicaux.', s2_cta: 'En savoir plus et devis', s2_href: 'https://finance-lp.onrender.com/',
+    s2_title: "Financement d'équipements médicaux", s2_text: 'Obtenez un financement pour acquérir des équipements médicaux.', s2_cta: 'En savoir plus et devis', s2_href: 'https://med-device-frontend.onrender.com/apply',
     s3_title: 'Enregistrement des dispositifs médicaux', s3_text: "Accompagnement pour l'enregistrement des dispositifs médicaux au Kenya. Études de marché et conseil en santé également disponibles.", s3_cta: 'Réserver une consultation',
 
     news_label: 'Actualités', news_title: 'Actualités et projets collaboratifs',
