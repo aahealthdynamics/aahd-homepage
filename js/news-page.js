@@ -86,6 +86,57 @@
     detailEl.innerHTML = html;
     if (heroTitle) heroTitle.textContent = title.text;
     document.title = `${title.text} | Africa Asia Health Dynamics`;
+    applyArticleSeo(item, source, title.text, content.text);
+  }
+
+  // Canonical, description, Open Graph and NewsArticle JSON-LD for the article being viewed.
+  function setMeta(selector, attr, name, value) {
+    let el = document.querySelector(selector);
+    if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
+    el.setAttribute('content', value);
+  }
+
+  function applyArticleSeo(item, source, titleText, contentHtml) {
+    const url = `${location.origin}/news.html?id=${encodeURIComponent(item.id)}`;
+    const summary = A.localized(item, 'summary', source).text;
+    const desc = summary || A.excerpt(contentHtml, 150);
+    const image = item.thumbnail && item.thumbnail.url ? `${item.thumbnail.url}?w=1200` : `${location.origin}/assets/images/ogp.jpg`;
+    const fullTitle = `${titleText} | Africa Asia Health Dynamics`;
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical); }
+    canonical.href = url;
+
+    setMeta('meta[name="description"]', 'name', 'description', desc);
+    setMeta('meta[property="og:url"]', 'property', 'og:url', url);
+    setMeta('meta[property="og:type"]', 'property', 'og:type', 'article');
+    setMeta('meta[property="og:title"]', 'property', 'og:title', fullTitle);
+    setMeta('meta[property="og:description"]', 'property', 'og:description', desc);
+    setMeta('meta[property="og:image"]', 'property', 'og:image', image);
+    setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', image);
+    document.querySelectorAll('meta[property="og:image:width"], meta[property="og:image:height"]').forEach(m => m.remove());
+
+    const ld = {
+      '@context': 'https://schema.org',
+      '@type': 'NewsArticle',
+      mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+      headline: titleText,
+      description: desc,
+      image: [image],
+      datePublished: item.publishedAt || item.createdAt,
+      dateModified: item.updatedAt || item.publishedAt || item.createdAt,
+      inLanguage: A.getLang(),
+      author: { '@type': 'Organization', name: 'Africa Asia Health Dynamics Limited', url: `${location.origin}/` },
+      publisher: {
+        '@type': 'Organization',
+        '@id': `${location.origin}/#organization`,
+        name: 'Africa Asia Health Dynamics Limited',
+        logo: { '@type': 'ImageObject', url: `${location.origin}/assets/images/logo-black.png` },
+      },
+    };
+    let script = document.getElementById('article-ld');
+    if (!script) { script = document.createElement('script'); script.type = 'application/ld+json'; script.id = 'article-ld'; document.head.appendChild(script); }
+    script.textContent = JSON.stringify(ld);
   }
 
   function notFound() {

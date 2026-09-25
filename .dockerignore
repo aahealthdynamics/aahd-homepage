@@ -1,6 +1,9 @@
 .git
+.github
 .gitignore
 .dockerignore
 .DS_Store
 Dockerfile
 README.md
+docs
+scripts

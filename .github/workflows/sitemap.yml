@@ -1,0 +1,30 @@
+name: Update sitemap
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # daily 03:00 UTC (06:00 Nairobi / 12:00 Tokyo)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node scripts/build-sitemap.mjs
+      - name: Commit sitemap if it changed
+        run: |
+          if git diff --quiet -- sitemap.xml; then
+            echo "sitemap.xml unchanged"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          git commit -m "chore: update sitemap"
+          git push
