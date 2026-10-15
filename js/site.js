@@ -33,12 +33,23 @@
     return 'en'; // English is the default; JA / FR only when chosen via the switch or ?lang=
   }
 
+  // The pages ship only a Latin subset of Noto Sans JP; fetch the full Japanese set on demand.
+  function loadJapaneseFont() {
+    if (document.getElementById('font-noto-ja')) return;
+    const link = document.createElement('link');
+    link.id = 'font-noto-ja';
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap';
+    document.head.appendChild(link);
+  }
+
   function applyLang(lang) {
     if (!SUPPORTED.includes(lang)) lang = 'en';
     currentLang = lang;
     const t = I18N[lang];
 
     document.documentElement.lang = lang;
+    if (lang === 'ja') loadJapaneseFont();
     // Only the home page takes its title/description from the dictionary. Other pages keep
     // their own (news.html swaps the title only; generated article pages keep everything).
     const pageType = document.body.dataset.page || 'home';
