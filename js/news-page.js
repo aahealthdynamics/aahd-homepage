@@ -9,7 +9,9 @@
   const A = window.AAHD;
   const LIMIT = 9;
   const params = new URLSearchParams(location.search);
-  const articleId = params.get('id');
+  // /news.html?id=<id> (old links) or /news/<id>.html served by nginx before its static page exists
+  const pathMatch = location.pathname.match(/^\/news\/([A-Za-z0-9_-]+)\.html$/);
+  const articleId = params.get('id') || (pathMatch ? pathMatch[1] : null);
   const page = Math.max(1, parseInt(params.get('page'), 10) || 1);
 
   const listSection = document.getElementById('news-list-section');
