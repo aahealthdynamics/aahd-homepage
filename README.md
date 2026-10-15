@@ -37,9 +37,11 @@ Posts to the existing Google Apps Script endpoint (`CONTACT_FORM_ENDPOINT` in `j
 
 ## SEO and hosting
 
-- `robots.txt` and `sitemap.xml` are served from the root. `scripts/build-sitemap.mjs` regenerates the sitemap from the static pages plus every Kenya news article; `.github/workflows/sitemap.yml` runs it daily and commits changes (which triggers a deploy).
-- `index.html` declares `hreflang` alternates for this site (`en-KE`) and the Japan site (`ja`, `en`). The Japan site should list `en-KE` in return.
-- Article pages (`news.html?id=…`) set their own canonical, description, Open Graph tags and `NewsArticle` JSON-LD from the CMS data.
+- `robots.txt` and `sitemap.xml` are served from the root.
+- `scripts/build-news.mjs` pre-renders Kenya news into static HTML: one page per article at `news/<id>.html`, plus the cards in `news.html` and `index.html` (between `<!-- build:... -->` markers). `scripts/build-sitemap.mjs` then regenerates the sitemap. `.github/workflows/sitemap.yml` runs both daily and on a microCMS webhook, and commits changes (which triggers a deploy). Do not edit `news/*.html` or the marked blocks by hand.
+- Images are served as resized WebP from `assets/images/opt/` (originals stay in `assets/images/`). Fonts load without blocking first paint.
+- `index.html` declares `hreflang` alternates for this site (`en-KE`) and the Japan site (`ja`, `en`). The Japan site lists `en-KE` in return (added 2026-10-01).
+- Article pages (`news/<id>.html`) carry their own title, description, canonical, Open Graph tags and `NewsArticle` + `BreadcrumbList` JSON-LD in the static HTML. Old `news.html?id=…` links still work and point their canonical at the static page.
 - `nginx.conf` enables gzip, sets cache headers (images 30 days, CSS/JS 1 day, HTML no-cache) and serves `404.html`.
 
 ## Local preview

@@ -18,6 +18,7 @@
   const SUPPORTED = ['en', 'ja', 'fr'];
   let currentLang = 'en';
   let cmsItems = null;
+  let cmsLoaded = false; // until the CMS answers, keep the cards baked into the HTML by scripts/build-news.mjs
   let newsSource = null; // 'ke' | 'jp' | null (static fallback)
   const langListeners = [];
 
@@ -38,14 +39,20 @@
     const t = I18N[lang];
 
     document.documentElement.lang = lang;
-    const pageTitleKey = document.body.dataset.titleKey || 'meta_title';
-    document.title = t[pageTitleKey] || t.meta_title;
-    const desc = document.querySelector('meta[name="description"]');
-    if (desc) desc.content = t.meta_desc;
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.content = t.meta_title;
-    const ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) ogDesc.content = t.meta_desc;
+    // Only the home page takes its title/description from the dictionary. Other pages keep
+    // their own (news.html swaps the title only; generated article pages keep everything).
+    const pageType = document.body.dataset.page || 'home';
+    if (pageType === 'home') {
+      document.title = t.meta_title;
+      const desc = document.querySelector('meta[name="description"]');
+      if (desc) desc.content = t.meta_desc;
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.content = t.meta_title;
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.content = t.meta_desc;
+    } else if (document.body.dataset.titleKey && t[document.body.dataset.titleKey]) {
+      document.title = t[document.body.dataset.titleKey];
+    }
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const v = t[el.dataset.i18n];
@@ -65,7 +72,7 @@
     document.querySelectorAll('[data-lang-btn]').forEach(btn => {
       const active = btn.dataset.langBtn === lang;
       btn.classList.toggle('is-active', active);
-      btn.setAttribute('aria-pressed', String(active));
+      if (active) btn.setAttribute('aria-current', 'true'); else btn.removeAttribute('aria-current');
     });
 
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* ignore */ }
@@ -168,7 +175,7 @@
 
   function articleUrl(item, source) {
     if (item.link && /^https?:/i.test(item.link)) return { href: item.link, external: true };
-    if (source === 'ke') return { href: `/news.html?id=${encodeURIComponent(item.id)}`, external: false };
+    if (source === 'ke') return { href: `/news/${encodeURIComponent(item.id)}.html`, external: false };
     return { href: `${CMS_CONFIG.sharedArticleBase}/news/${encodeURIComponent(item.id)}.html`, external: true };
   }
 
@@ -204,6 +211,10 @@
     const grid = document.getElementById('top-news');
     if (!grid) return;
     const section = grid.closest('section');
+    if (!cmsLoaded) {
+      if (section && !grid.querySelector('.news-card')) section.hidden = true;
+      return;
+    }
     if (!cmsItems || !cmsItems.length) {
       if (section) section.hidden = true;
       return;
@@ -216,8 +227,8 @@
   async function loadTopNews() {
     if (!document.getElementById('top-news')) return;
     const ke = await fetchCMS(CMS_CONFIG.kenyaEndpoint, { limit: 3, orders: '-publishedAt' });
-    if (ke && Array.isArray(ke.contents) && ke.contents.length) {
-      cmsItems = ke.contents; newsSource = 'ke';
+    if (ke && Array.isArray(ke.contents)) {
+      cmsItems = ke.contents; newsSource = 'ke'; cmsLoaded = true;
     }
     renderNews();
   }

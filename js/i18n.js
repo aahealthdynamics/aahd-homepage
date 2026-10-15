@@ -10,8 +10,8 @@ const CONTACT_FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyV5eKQQ5
 
 const I18N = {
   en: {
-    meta_title: 'Africa Asia Health Dynamics Limited | Medical Training & Medical Equipment Financing in Kenya',
-    meta_desc: 'Africa Asia Health Dynamics Limited bridges the healthcare gap between Asia and Africa with expert medical training, flexible medical equipment financing and medical device registration support in Kenya. Nairobi-based subsidiary of AA Health Dynamics Inc. (Tokyo).',
+    meta_title: 'Medical Training & Equipment Financing in Kenya | AA Health Dynamics',
+    meta_desc: 'Hands-on POCUS and medical training, flexible medical equipment financing and device registration support for hospitals and clinics in Kenya, from Nairobi.',
     skip: 'Skip to content',
 
     nav_home: 'Home', nav_about: 'About', nav_services: 'Services', nav_news: 'News', nav_contact: 'Contact',
@@ -76,8 +76,8 @@ const I18N = {
   },
 
   ja: {
-    meta_title: 'Africa Asia Health Dynamics Limited | ケニアの医療トレーニング・医療機器ファイナンス',
-    meta_desc: 'Africa Asia Health Dynamics Limitedは、専門的な医療トレーニング、柔軟な医療機器ファイナンス、ケニアでの医療機器登録支援を通じて、アジアとアフリカの医療格差を埋めます。AA Health Dynamics株式会社（東京）のナイロビ子会社。',
+    meta_title: 'ケニアの医療トレーニング・医療機器ファイナンス | AA Health Dynamics',
+    meta_desc: 'ケニアの病院・クリニック向けに、POCUS などの実践的な医療トレーニング、医療機器ファイナンス、医療機器登録支援をナイロビから提供しています。',
     skip: '本文へスキップ',
 
     nav_home: 'ホーム', nav_about: '会社概要', nav_services: 'サービス', nav_news: 'ニュース', nav_contact: 'お問い合わせ',
@@ -142,8 +142,8 @@ const I18N = {
   },
 
   fr: {
-    meta_title: "Africa Asia Health Dynamics Limited | Formation médicale et financement d'équipements médicaux au Kenya",
-    meta_desc: "Africa Asia Health Dynamics Limited comble l'écart de santé entre l'Asie et l'Afrique grâce à des formations médicales expertes, un financement flexible d'équipements médicaux et un accompagnement à l'enregistrement des dispositifs médicaux au Kenya. Filiale de AA Health Dynamics Inc. (Tokyo), basée à Nairobi.",
+    meta_title: "Formation médicale et financement d'équipements au Kenya | AA Health Dynamics",
+    meta_desc: "Formation pratique (POCUS), financement flexible d'équipements médicaux et aide à l'enregistrement des dispositifs pour les hôpitaux et cliniques du Kenya.",
     skip: 'Aller au contenu',
 
     nav_home: 'Accueil', nav_about: 'À propos', nav_services: 'Services', nav_news: 'Actualités', nav_contact: 'Contact',

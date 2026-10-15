@@ -374,7 +374,7 @@ nav.menu-open .nav-langs .nav-lang.is-active { background: var(--teal); color: v
 
 .footer-brand p { margin-top: 16px; max-width: 360px; font-size: 13px; line-height: 1.9; color: rgba(255,255,255,0.4); }
 
-.footer-col h4 {
+.footer-col h4, .footer-col .footer-heading {
   font-family: 'DM Sans', sans-serif;
   font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
   color: rgba(255,255,255,0.5); margin-bottom: 16px;
@@ -434,3 +434,43 @@ nav.menu-open .nav-langs .nav-lang.is-active { background: var(--teal); color: v
   .impact-grid { grid-template-columns: 1fr; gap: 36px; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
 }
+
+/* ---------- Accessibility: text contrast (WCAG AA) and touch targets ---------- */
+/* Teal (#00D4AA) is too light for small text on white; use a darker shade there. */
+.news-cat, .news-lang-tag, .news-list-category { color: #00745D; }
+.news-card .news-date, .news-list-date { color: var(--text-mid); }
+.news-card .news-excerpt { color: var(--text-mid); }
+.footer-brand p { color: rgba(255,255,255,0.68); }
+.footer-col li, .footer-col a { color: rgba(255,255,255,0.72); }
+.footer-bottom { color: rgba(255,255,255,0.6); }
+
+/* Slider dots: keep the 8px look but give each a 24px tap area. */
+.hero-dots { gap: 4px; }
+.hero-dots button {
+  width: 24px; height: 24px; border: 0; background: transparent;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.hero-dots button::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.6); background: transparent;
+  transition: background 0.3s, transform 0.3s;
+}
+.hero-dots button.is-active { background: transparent; transform: none; }
+.hero-dots button.is-active::before { background: var(--teal); border-color: var(--teal); transform: scale(1.25); }
+
+/* ---------- Generated article pages (news/<id>.html) ---------- */
+.page-hero .page-hero-kicker {
+  font-size: 44px; font-weight: 900; color: var(--white);
+  letter-spacing: -1px; line-height: 1.2;
+  opacity: 0; animation: fadeUp 0.8s 0.4s ease forwards;
+}
+@media (max-width: 1024px) { .page-hero .page-hero-kicker { font-size: 32px; } }
+
+/* Article pages: darker teal / grey for small text on the warm background */
+.article-detail-date { color: var(--text-mid); }
+.article-detail-category { color: #00745D; }
+.article-detail-back, .article-detail-back span { color: #00745D; }
+.article-detail-back:hover, .article-detail-back:hover span { color: var(--navy); }
+
+/* News list: card titles are h2 (heading order), styled like the original h3 */
+.news-list-card .news-list-title { font-size: 17px; font-weight: 600; line-height: 1.8; color: var(--navy); }

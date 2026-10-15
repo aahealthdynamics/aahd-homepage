@@ -1,30 +1,41 @@
-name: Update sitemap
+name: Build news pages and sitemap
 
+# Pre-renders Kenya news from microCMS into static HTML (news/<id>.html, the news list
+# and the home-page cards) and regenerates sitemap.xml. A commit triggers a Render deploy.
 on:
   schedule:
     - cron: '0 3 * * *' # daily 03:00 UTC (06:00 Nairobi / 12:00 Tokyo)
+  # microCMS webhook → GitHub "repository_dispatch" (event type: microcms) publishes
+  # new articles within minutes. Setup: docs/microcms-kenya-news.md, section 6.
+  repository_dispatch:
+    types: [microcms]
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: build-news
+  cancel-in-progress: false
+
 jobs:
-  sitemap:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - run: node scripts/build-news.mjs
       - run: node scripts/build-sitemap.mjs
-      - name: Commit sitemap if it changed
+      - name: Commit if anything changed
         run: |
-          if git diff --quiet -- sitemap.xml; then
-            echo "sitemap.xml unchanged"
+          git add -A news index.html news.html sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add sitemap.xml
-          git commit -m "chore: update sitemap"
+          git commit -m "chore: rebuild news pages and sitemap"
           git push

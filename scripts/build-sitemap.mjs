@@ -32,7 +32,7 @@ try {
     for (const c of data.contents || []) {
       if (c.link) continue; // external articles have no page here
       urls.push({
-        loc: `${SITE}/news.html?id=${encodeURIComponent(c.id)}`,
+        loc: `${SITE}/news/${encodeURIComponent(c.id)}.html`,
         lastmod: String(c.updatedAt || c.publishedAt || today).slice(0, 10),
         changefreq: 'monthly',
         priority: '0.6',

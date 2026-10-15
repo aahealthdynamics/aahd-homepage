@@ -57,12 +57,37 @@ microCMS 管理画面 → 「API」→「追加」
 | --- | --- |
 | トップページ「News & Collaborative Stories」 | 最新 3 件 |
 | `/news.html` | 一覧（9 件ずつ、ページ送りあり） |
-| `/news.html?id=<コンテンツ ID>` | 記事ページ |
+| `/news/<コンテンツ ID>.html` | 記事ページ（検索エンジン向けの静的ページ） |
+| `/news.html?id=<コンテンツ ID>` | 旧形式の記事 URL（互換のため残しています） |
+
+記事ページは GitHub Actions（`.github/workflows/sitemap.yml`）が microCMS から静的 HTML を生成します。
+トップと一覧は公開直後からブラウザ側で最新が表示されますが、**記事ページの生成とサイトマップ反映は毎日 12:00（日本時間）**です。
+すぐに反映したい場合は、下の 6. の Webhook を設定するか、GitHub の Actions 画面で「Build news pages and sitemap」を手動実行してください。
 
 ## 5. 動作確認
 
 1. `news-ke` に記事を 1 件公開する。
 2. サイトを再読み込みし、トップの News に表示されることを確認する。
-3. カードをクリックして `/news.html?id=...` が開くことを確認する。
+3. カードをクリックして `/news/<id>.html` が開くことを確認する（Webhook 未設定の場合は翌日 12:00 以降）。
 
 日本側のニュースを両サイトに載せたい場合は、その記事を `news-ke` にも登録してください（`link` に日本側の記事 URL を入れると、その URL へ直接飛ばせます）。
+
+## 6. 公開と同時に記事ページを生成する（Webhook・任意）
+
+microCMS で記事を公開・更新したら GitHub Actions を起動する設定です。一度だけ行います。
+
+1. GitHub で Fine-grained personal access token を作成します。
+   Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token。
+   Repository access は `aahealthdynamics/aahd-homepage` のみ、Permissions は **Contents: Read and write** のみにします。
+2. microCMS 管理画面 → `news-ke` → API 設定 → Webhook → 追加 → **GitHub Actions** を選びます。
+3. 次のように入力します。
+
+| 項目 | 値 |
+| --- | --- |
+| GitHub トークン | 1. で作成したトークン |
+| GitHub ユーザー名 | `aahealthdynamics` |
+| リポジトリ名 | `aahd-homepage` |
+| トリガーイベント名 | `microcms` |
+| 通知タイミング | コンテンツの公開時・更新時・削除時 |
+
+設定後は、記事を公開して数分で `/news/<id>.html` とサイトマップが更新されます。

@@ -31,19 +31,21 @@
 <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@200;300;400;500;700;900&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap"></noscript>
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/site.css">
 </head>
-<body data-title-key="news_page_meta_title">
+<body data-page="news" data-title-key="news_page_meta_title">
 
 <a href="#main" class="skip-link" data-i18n="skip">Skip to content</a>
 
 <!-- NAV -->
 <nav id="mainNav">
   <a href="/" class="nav-logo" aria-label="Africa Asia Health Dynamics — Home">
-    <img src="/assets/images/logo-black.png" alt="AA Health Dynamics" class="nav-logo-img">
-    <img src="/assets/images/logo-white.png" alt="" class="nav-logo-img nav-logo-white" aria-hidden="true">
+    <img src="/assets/images/opt/logo-black-240.webp" alt="AA Health Dynamics" class="nav-logo-img" width="240" height="119">
+    <img src="/assets/images/opt/logo-white-240.webp" alt="" class="nav-logo-img nav-logo-white" aria-hidden="true" width="240" height="119">
   </a>
   <div class="nav-links">
     <a href="/" data-i18n="nav_home">Home</a>
@@ -54,9 +56,9 @@
   </div>
   <div class="nav-right">
     <div class="nav-langs" role="group" aria-label="Language">
-      <a href="?lang=en" class="nav-lang" data-lang-btn="en" aria-pressed="true" hreflang="en">EN</a>
-      <a href="?lang=ja" class="nav-lang" data-lang-btn="ja" aria-pressed="false" hreflang="ja">JP</a>
-      <a href="?lang=fr" class="nav-lang" data-lang-btn="fr" aria-pressed="false" hreflang="fr">FR</a>
+      <a href="?lang=en" class="nav-lang" data-lang-btn="en" hreflang="en">EN</a>
+      <a href="?lang=ja" class="nav-lang" data-lang-btn="ja" hreflang="ja">JP</a>
+      <a href="?lang=fr" class="nav-lang" data-lang-btn="fr" hreflang="fr">FR</a>
     </div>
     <button type="button" class="nav-hamburger" aria-label="Menu" aria-controls="mainNav" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -68,7 +70,7 @@
 
 <!-- PAGE HERO -->
 <section class="page-hero">
-  <img src="/assets/images/pocus-training-1.jpg" alt="" class="page-hero-bg" fetchpriority="high" decoding="async">
+  <img src="/assets/images/opt/pocus-training-1-1477.webp" srcset="/assets/images/opt/pocus-training-1-800.webp 800w, /assets/images/opt/pocus-training-1-1477.webp 1477w" sizes="100vw" alt="" class="page-hero-bg" width="1477" height="1108" fetchpriority="high" decoding="async">
   <div class="page-hero-inner">
     <div class="breadcrumb"><a href="/" data-i18n="nav_home">Home</a> — <span data-i18n="nav_news">News</span></div>
     <div class="label" data-i18n="news_label">News</div>
@@ -80,7 +82,18 @@
 <!-- NEWS LIST -->
 <section class="news-list-page" id="news-list-section">
   <div class="news-list-inner">
-    <div class="news-list-grid" id="news-list" aria-live="polite"></div>
+    <div class="news-list-grid" id="news-list" aria-live="polite"><!-- build:news-list -->
+      <a href="/news/kfxe1p0cf.html" class="news-list-card reveal visible">
+        <div class="news-list-thumb"><img src="https://images.microcms-assets.io/assets/4b41e2d922394f53af13d3c2f9e57e09/4a3a13804d444361b82a4bec3cd75fed/Black%20on%20White.png?w=600&amp;h=338&amp;fit=crop&amp;fm=webp" alt="" width="600" height="338" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="news-list-body">
+          <div class="news-list-meta">
+            <span class="news-list-date">2026.09.25</span>
+            <span class="news-list-category">Press Release</span>
+          </div>
+          <h2 class="news-list-title">Test</h2>
+        </div>
+      </a>
+    <!-- /build:news-list --></div>
   </div>
 </section>
 
@@ -96,11 +109,11 @@
   <div class="footer-wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="/assets/images/logo-white.png" alt="AA Health Dynamics">
+        <img src="/assets/images/opt/logo-white-240.webp" alt="AA Health Dynamics" width="240" height="119" loading="lazy">
         <p><span data-i18n="footer_brand">Africa Asia Health Dynamics Limited</span><br><span data-i18n="footer_sub">A subsidiary of AA Health Dynamics Inc.</span></p>
       </div>
       <div class="footer-col">
-        <h4 data-i18n="footer_quick">Quick Links</h4>
+        <h2 class="footer-heading" data-i18n="footer_quick">Quick Links</h2>
         <ul>
           <li><a href="/#about" data-i18n="fl_about">About Us</a></li>
           <li><a href="/#services" data-i18n="fl_services">Services</a></li>
@@ -109,7 +122,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4 data-i18n="footer_services">Our Services</h4>
+        <h2 class="footer-heading" data-i18n="footer_services">Our Services</h2>
         <ul>
           <li data-i18n="fs_1">Medical Trainings</li>
           <li data-i18n="fs_2">Equipment Financing</li>
